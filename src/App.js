@@ -6,6 +6,8 @@ import {
   HashRouter,
   NavLink,
   useNavigate,
+  Outlet,
+  useParams,
 } from 'react-router-dom';
 
 const Logout  = () => {
@@ -23,6 +25,21 @@ const Todo = () => {
     </>
   )
 };
+
+const Post = () => {
+  return (
+    <div>
+      <h3>Post 頁面</h3>
+      <Outlet />
+    </div>
+  );
+};
+const PostId = () => {
+  let params = useParams();
+  return <p>Post ID: {params.postId}</p>;
+};
+
+
 const Login = () => {
   return <p>這是登入頁面</p>;
 };
@@ -47,12 +64,24 @@ function App() {
           <NavLink to="/todo">
             <p>Todo 頁面</p>
           </NavLink>
+          <NavLink to="/post">
+            <p>Post 頁面</p>
+          </NavLink>
+          <NavLink to="/post/post123">
+            <p>Post 詳細頁面1</p>
+          </NavLink>
+          <NavLink to="/post/post456">
+            <p>Post 詳細頁面2</p>
+          </NavLink>
         </div>
         {/* Routes, Route 練習區 */}
         <Routes>
           <Route path="/register" element={<Register />} /> 
           <Route path="/login" element={<Login />} /> 
           <Route path="/todo" element={<Todo />} /> 
+          <Route path="/post" element={<Post />}>
+            <Route path=":postId" element={<PostId />} />
+          </Route>
         </Routes>
         {/* 練習區 */}
       </BrowserRouter>
